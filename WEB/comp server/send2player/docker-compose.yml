@@ -1,0 +1,16 @@
+services:
+  web:
+    build: ./web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+  server:
+    build: ./server
+    environment:
+      - FLAG=${FLAG:-VSL{fake_flag}}
+      - SESSION_SECRET=${SESSION_SECRET:-change_me}
+    depends_on:
+      - web
+    restart: unless-stopped

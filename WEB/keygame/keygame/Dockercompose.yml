@@ -1,0 +1,5 @@
+services:
+  game_piano:
+    build: .
+    ports:
+      - "8000:80"

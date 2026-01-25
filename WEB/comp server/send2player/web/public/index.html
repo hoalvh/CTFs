@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tar & Zip Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <div>
+        <p class="eyebrow">Compressed storage</p>
+        <h1>Tar & Zip Viewer</h1>
+        <p class="lede">Sign in/Sign up to upload .tar, .tar.gz, .tgz, or .zip files and view their contents after extraction.</p>
+      </div>
+      <div class="user-chip" id="userChip"></div>
+    </header>
+
+    <section class="card" id="authCard">
+      <div class="switcher">
+        <button class="tab active" data-target="login">Sign In</button>
+        <button class="tab" data-target="register">Sign Up</button>
+      </div>
+      <form id="loginForm" class="form active">
+        <label>Username
+          <input name="username" autocomplete="username" required />
+        </label>
+        <label>Password
+          <input type="password" name="password" autocomplete="current-password" required />
+        </label>
+        <label id="adminKeyRow" class="hidden">Admin key
+          <input type="text" id="adminKeyInput" name="adminKeyInp" autocomplete="off" />
+        </label>
+        <button type="submit">Sign In</button>
+        <p class="hint">Don't have an account? Switch to the Sign Up tab.</p>
+        <p class="error" id="loginError"></p>
+      </form>
+      <form id="registerForm" class="form">
+        <label>Username
+          <input name="username" autocomplete="username" required />
+        </label>
+        <label>Password
+          <input type="password" name="password" autocomplete="new-password" required />
+        </label>
+        <button type="submit">Sign Up</button>
+        <p class="hint">Password must be at least 6 characters.</p>
+        <p class="error" id="registerError"></p>
+      </form>
+    </section>
+
+    <section class="card hidden" id="appCard">
+      <div class="upload-row">
+        <div>
+          <h2>Upload & Extract</h2>
+          <p>Accepts .tar, .tar.gz, .tgz, .zip (up to 50MB).</p>
+        </div>
+        <form id="uploadForm">
+          <input type="file" name="archive" accept=".zip,.tar,.tar.gz,.tgz" required />
+          <button type="submit">Upload</button>
+        </form>
+      </div>
+      <div id="uploadStatus" class="status"></div>
+      <div id="filesContainer" class="files"></div>
+      <div id="fileViewer" class="viewer hidden">
+        <div class="viewer-header">
+          <div>
+            <p class="eyebrow">File preview</p>
+            <h3 id="viewerTitle">Select a file to view</h3>
+          </div>
+          <button id="closeViewer" type="button">Close</button>
+        </div>
+        <pre id="viewerContent"></pre>
+      </div>
+    </section>
+  </div>
+  <script src="/client.js"></script>
+</body>
+</html>
