@@ -1,0 +1,237 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f0f;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+h1 span { color: #7c3aed; }
+
+.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #222;
+}
+
+nav a {
+    color: #a78bfa;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+nav a:hover { color: #c4b5fd; }
+nav a.active { color: #fff; font-weight: 600; }
+
+.user-badge {
+    margin-left: auto;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.user-badge strong { color: #a78bfa; }
+
+.card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.note-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.note-item a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.note-item a:hover { color: #a78bfa; }
+
+.note-badges {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.badge-shared {
+    background: #7c3aed22;
+    color: #a78bfa;
+    border: 1px solid #7c3aed44;
+}
+
+.badge-private {
+    background: #333;
+    color: #888;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: #7c3aed;
+}
+
+textarea { min-height: 120px; resize: vertical; }
+
+button, .btn {
+    padding: 0.6rem 1.2rem;
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .btn:hover { background: #6d28d9; }
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #333;
+    color: #e0e0e0;
+}
+
+.btn-outline:hover { border-color: #7c3aed; color: #a78bfa; }
+
+.btn-danger {
+    background: #dc2626;
+}
+
+.btn-danger:hover { background: #b91c1c; }
+
+.btn-sm {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.note-view {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.note-view h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #222;
+}
+
+.note-content {
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.login-box {
+    max-width: 360px;
+    margin: 4rem auto;
+}
+
+.report-box {
+    max-width: 500px;
+}
+
+.report-box input {
+    margin-bottom: 0.5rem;
+}
+
+.flash {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.flash-success {
+    background: #065f4622;
+    border: 1px solid #065f4644;
+    color: #34d399;
+}
+
+.flash-error {
+    background: #dc262622;
+    border: 1px solid #dc262644;
+    color: #f87171;
+}
+
+.security-info {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #555;
+    font-family: monospace;
+}
+
+.security-info code {
+    color: #666;
+}

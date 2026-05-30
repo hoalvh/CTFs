@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' | ' : '' %>SecureNotes</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Secure<span>Notes</span></h1>
+        <p class="subtitle">End-to-end protected note sharing</p>
+        <nav>
+            <a href="/" class="<%= typeof active !== 'undefined' && active === 'home' ? 'active' : '' %>">My Notes</a>
+            <a href="/new" class="<%= typeof active !== 'undefined' && active === 'new' ? 'active' : '' %>">New Note</a>
+            <a href="/report" class="<%= typeof active !== 'undefined' && active === 'report' ? 'active' : '' %>">Report</a>
+            <% if (user) { %>
+                <span class="user-badge">Signed in as <strong><%= user %></strong> &middot; <a href="/logout">Logout</a></span>
+            <% } else { %>
+                <span class="user-badge"><a href="/login">Sign in</a></span>
+            <% } %>
+        </nav>
+
+        <% if (typeof flash !== 'undefined' && flash) { %>
+            <div class="flash flash-<%= flash.type %>"><%= flash.message %></div>
+        <% } %>
+
+        <%- content %>
+    </div>
+</body>
+</html>

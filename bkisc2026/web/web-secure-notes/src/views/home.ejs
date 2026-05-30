@@ -1,0 +1,27 @@
+<% if (!user) { %>
+    <div class="card">
+        <h2>Welcome</h2>
+        <p style="color:#888; margin-bottom:1rem">Create and share notes with my ultimate protection. Hacker can't do anything. Trust me.</p>
+        <a href="/login" class="btn">Sign in to get started</a>
+    </div>
+<% } else { %>
+    <div class="card">
+        <h2>Your Notes</h2>
+        <% if (notes.length === 0) { %>
+            <p style="color:#666">No notes yet. <a href="/new" style="color:#a78bfa">Create one</a>.</p>
+        <% } else { %>
+            <% notes.forEach(n => { %>
+                <div class="note-item">
+                    <a href="/note/<%= n.id %>"><%= n.title %></a>
+                    <div class="note-badges">
+                        <% if (n.shared) { %>
+                            <span class="badge badge-shared">Shared</span>
+                        <% } else { %>
+                            <span class="badge badge-private">Private</span>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+<% } %>

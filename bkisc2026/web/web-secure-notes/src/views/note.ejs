@@ -1,0 +1,17 @@
+<div class="note-view">
+    <h1><%= title %></h1>
+    <div class="note-content"><%- content %></div>
+</div>
+
+<% if (isOwner) { %>
+<div class="actions" style="margin-top:1rem">
+    <form method="POST" action="/api/note/<%= noteId %>/share" style="display:inline">
+        <button type="submit" class="btn btn-sm <%= shared ? 'btn-danger' : 'btn-outline' %>">
+            <%= shared ? 'Unshare' : 'Share' %>
+        </button>
+    </form>
+    <span style="color:#555; font-size:0.8rem; line-height:2.2">
+        <%= shared ? 'Note is shared — collaborators can view with relaxed security' : 'Note is private — full security headers enforced' %>
+    </span>
+</div>
+<% } %>
